@@ -1,10 +1,13 @@
-import CropTool from "./features/crop/cropTool.tsx";
+import {
+    RouterProvider,
+} from "react-router-dom";
+import router from "@/navigation/routes.tsx";
+
 
 function App() {
-
   return (
     <>
-        <CropTool></CropTool>
+        <RouterProvider router={router} />
     </>
   )
 }

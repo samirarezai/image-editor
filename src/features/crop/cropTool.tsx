@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, {useState, useRef} from 'react'
 
 import ReactCrop, {
     centerCrop,
@@ -7,8 +7,8 @@ import ReactCrop, {
     PixelCrop,
     convertToPixelCrop,
 } from 'react-image-crop'
-import { canvasPreview } from './canvasPreview'
-import { useDebounceEffect } from './useDebounceEffect.tsx'
+import {canvasPreview} from './canvasPreview'
+import {useDebounceEffect} from './useDebounceEffect.tsx'
 
 import 'react-image-crop/dist/ReactCrop.css'
 
@@ -34,8 +34,8 @@ function centerAspectCrop(
     )
 }
 
-const CropTool = () => {
-    const [imgSrc, setImgSrc] = useState('')
+const CropTool = ({imgSrc}: { imgSrc: string }) => {
+    // const [imgSrc, setImgSrc] = useState('')
     const previewCanvasRef = useRef<HTMLCanvasElement>(null)
     const imgRef = useRef<HTMLImageElement>(null)
     const hiddenAnchorRef = useRef<HTMLAnchorElement>(null)
@@ -46,20 +46,20 @@ const CropTool = () => {
     const [rotate, setRotate] = useState(0)
     const [aspect, setAspect] = useState<number | undefined>(16 / 9)
 
-    function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
-        if (e.target.files && e.target.files.length > 0) {
-            setCrop(undefined) // Makes crop preview update between images.
-            const reader = new FileReader()
-            reader.addEventListener('load', () =>
-                setImgSrc(reader.result?.toString() || ''),
-            )
-            reader.readAsDataURL(e.target.files[0])
-        }
-    }
+    // function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
+    //     if (e.target.files && e.target.files.length > 0) {
+    //         setCrop(undefined) // Makes crop preview update between images.
+    //         const reader = new FileReader()
+    //         reader.addEventListener('load', () =>
+    //             setImgSrc(reader.result?.toString() || ''),
+    //         )
+    //         reader.readAsDataURL(e.target.files[0])
+    //     }
+    // }
 
     function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
         if (aspect) {
-            const { width, height } = e.currentTarget
+            const {width, height} = e.currentTarget
             setCrop(centerAspectCrop(width, height, aspect))
         }
     }
@@ -143,7 +143,7 @@ const CropTool = () => {
             setAspect(16 / 9)
 
             if (imgRef.current) {
-                const { width, height } = imgRef.current
+                const {width, height} = imgRef.current
                 const newCrop = centerAspectCrop(width, height, 16 / 9)
                 setCrop(newCrop)
                 // Updates the preview
@@ -155,7 +155,7 @@ const CropTool = () => {
     return (
         <div className="App">
             <div className="Crop-Controls">
-                <input type="file" accept="image/*" onChange={onSelectFile} />
+                {/*<input type="file" accept="image/*" onChange={onSelectFile}/>*/}
                 <div>
                     <label htmlFor="scale-input">Scale: </label>
                     <input
@@ -199,7 +199,7 @@ const CropTool = () => {
                         ref={imgRef}
                         alt="Crop me"
                         src={imgSrc}
-                        style={{ transform: `scale(${scale}) rotate(${rotate}deg)` }}
+                        style={{transform: `scale(${scale}) rotate(${rotate}deg)`}}
                         onLoad={onImageLoad}
                     />
                 </ReactCrop>
@@ -219,7 +219,7 @@ const CropTool = () => {
                     </div>
                     <div>
                         <button onClick={onDownloadCropClick}>Download Crop</button>
-                        <div style={{ fontSize: 12, color: '#666' }}>
+                        <div style={{fontSize: 12, color: '#666'}}>
                             If you get a security error when downloading try opening the
                             Preview in a new tab (icon near top right).
                         </div>

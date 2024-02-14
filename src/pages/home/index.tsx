@@ -4,20 +4,22 @@ import {useState} from "react";
 import Tools from "@/features/tools";
 
 const Index = () => {
-    const [imgSrc, setImgSrc] = useState('')
+    const [imgSrc, setImgSrc] = useState('');
+    const [tool, setTool] = useState('crop');
     return (
         <div className="p-2">
             <div className="mb-3">
                 <div className="mb-3">
                     <Upload setImgSrc={setImgSrc}/>
                 </div>
-                <div >
-                    <Tools/>
+                
+                <div>
+                    <Tools setTool={setTool}/>
                 </div>
             </div>
 
             <div>
-                <CropTool imgSrc={imgSrc}/>
+                {tool === "crop" ? <CropTool imgSrc={imgSrc}/> : ""}
             </div>
 
         </div>

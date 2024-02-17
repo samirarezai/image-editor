@@ -1,3 +1,4 @@
 export const InternalNavigation = {
-    ROOt: "/"
+    ROOt: "/",
+    POKEMON: "/pokemon",
 }

@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, Dispatch, SetStateAction} from 'react'
 
 import ReactCrop, {
     centerCrop,
@@ -33,8 +33,13 @@ function centerAspectCrop(
         mediaHeight,
     )
 }
+interface propsList {
+    imgSrc: string;
+    setImgSrc: Dispatch<SetStateAction<string>>;
+    setTool: Dispatch<SetStateAction<string>>;
+}
 
-const CropTool = ({imgSrc}: { imgSrc: string }) => {
+const CropTool = ({imgSrc ,setImgSrc,setTool}: propsList) => {
     // const [imgSrc, setImgSrc] = useState('')
     const previewCanvasRef = useRef<HTMLCanvasElement>(null)
     const imgRef = useRef<HTMLImageElement>(null)
@@ -107,11 +112,12 @@ const CropTool = ({imgSrc}: { imgSrc: string }) => {
             URL.revokeObjectURL(blobUrlRef.current)
         }
         blobUrlRef.current = URL.createObjectURL(blob)
-
-        if (hiddenAnchorRef.current) {
-            hiddenAnchorRef.current.href = blobUrlRef.current
-            hiddenAnchorRef.current.click()
-        }
+        setImgSrc(blobUrlRef.current)
+        setTool("")
+        // if (hiddenAnchorRef.current) {
+        //     hiddenAnchorRef.current.href = blobUrlRef.current
+        //     hiddenAnchorRef.current.click()
+        // }
     }
 
     useDebounceEffect(
@@ -206,19 +212,21 @@ const CropTool = ({imgSrc}: { imgSrc: string }) => {
             )}
             {!!completedCrop && (
                 <>
+                    <button onClick={onDownloadCropClick}>Crop</button>
                     <div>
                         <canvas
                             ref={previewCanvasRef}
                             style={{
                                 border: '1px solid black',
                                 objectFit: 'contain',
+                                opacity: 0,
                                 width: completedCrop.width,
                                 height: completedCrop.height,
                             }}
                         />
                     </div>
                     <div>
-                        <button onClick={onDownloadCropClick}>Download Crop</button>
+
                         <div style={{fontSize: 12, color: '#666'}}>
                             If you get a security error when downloading try opening the
                             Preview in a new tab (icon near top right).
@@ -226,7 +234,7 @@ const CropTool = ({imgSrc}: { imgSrc: string }) => {
                         <a
                             href="#hidden"
                             ref={hiddenAnchorRef}
-                            download
+                            download="image.png"
                             style={{
                                 position: 'absolute',
                                 top: '-200vh',

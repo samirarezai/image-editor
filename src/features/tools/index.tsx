@@ -2,18 +2,20 @@ import {Dispatch, SetStateAction} from "react";
 
 interface propsList {
     setTool: Dispatch<SetStateAction<string>>;
+    tool:string;
 }
 
-const Index = ({setTool}:propsList) => {
+const Index = ({tool,setTool}:propsList) => {
     return (
         <div>
             <label htmlFor="cars">Choose:</label>
 
-            <select name="cars" id="cars" onChange={(e)=>{
+            <select name="cars" id="cars" value={tool} onChange={(e) => {
                 setTool(e.target.value)
             }}>
+                <option value=""></option>
                 <option value="crop">crop</option>
-                <option value="scale">scale</option>
+
                 {/*<option value="rotate">rotate</option>*/}
                 {/*<option value="audi">Audi</option>*/}
             </select>

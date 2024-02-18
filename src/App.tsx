@@ -3,7 +3,7 @@ import {
 } from "react-router-dom";
 import router from "@/navigation/routes.tsx";
 import { Provider } from 'react-redux'
-import { store } from './stateManagment/store'
+import { store } from './stateManagment/store.ts'
 function App() {
   return (
     <>

@@ -7,7 +7,7 @@ export const pokemonApi = createApi({
     tagTypes: ['Post'],
     baseQuery: fetchBaseQuery({baseUrl: 'https://jsonplaceholder.typicode.com/'}),
     endpoints: (builder) => ({
-        getAllPokemon: builder.query<[], string>({
+        getAllPokemon: builder.query<{title:string}[], string>({
             query: () => `posts/`,
             providesTags: ['Post'],
         }),

@@ -1,24 +1,24 @@
 const Index = () => {
-    const employees = [
-        {employeeId: 11, name: 'John', managerId: 11},
-        {employeeId: 50, name: 'Todd', managerId: 73},
-        {employeeId: 150, name: 'Alex', managerId: 200},
-        {employeeId: 73, name: 'Sara', managerId: 11},
-        {employeeId: 200, name: 'Alex', managerId: 50},
-        {employeeId: 100, name: 'Alex', managerId: 150},
+
+    const products = [
+        {name: 'apples', category: 'fruits'},
+        {name: 'oranges', category: 'fruits'},
+        {name: 'potatoes', category: 'vegetables'}
     ];
-    const result:number[] = [];
-    const check = (employees: { employeeId: number; name: string; managerId: number }[], num: number): number[] => {
-        const employee = employees.find((item) => item.employeeId === num);
-        if (employee) {
-            if (employee.employeeId !== employee.managerId) {
-                result.push(employee.managerId);
-                check(employees, employee.managerId)
-            }
+
+    const groupByCategory = (products: { category: string }[]): {} => {
+        let list = {}
+        for (let i = 0; i < products.length; i++) {
+            if (list.hasOwnProperty(products[i].category))
+                list[products[i].category] = [...list[products[i].category], products[i]]
+            else
+                list[products[i].category] = [ products[i]]
         }
+
+        return list
     }
-    check(employees, 200)
-    console.log(result)
+    let result = groupByCategory(products);
+    console.log('result', result);
 
     return (
         <div>

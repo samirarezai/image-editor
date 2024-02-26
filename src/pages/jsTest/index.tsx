@@ -1,23 +1,21 @@
 const Index = () => {
 
-    const products = [
-        {name: 'apples', category: 'fruits'},
-        {name: 'oranges', category: 'fruits'},
-        {name: 'potatoes', category: 'vegetables'}
-    ];
-
-    const groupByCategory = (products: { category: string }[]): {} => {
-        let list = {}
-        for (let i = 0; i < products.length; i++) {
-            if (list.hasOwnProperty(products[i].category))
-                list[products[i].category] = [...list[products[i].category], products[i]]
-            else
-                list[products[i].category] = [ products[i]]
+    function jumpingOnClouds(c: number[]): number {
+        // Write your code here
+        const sunC = c.length - 1;
+        let steps = 0;
+        for (let i = 0; i < sunC; i++) {
+            if (c[i + 2] < 1) {
+                steps += 1;
+                i++;
+            } else {
+                steps += 1;
+            }
         }
-
-        return list
+        return steps;
     }
-    let result = groupByCategory(products);
+
+    let result = jumpingOnClouds([0, 0, 0 ,0 ,1 ,0]);
     console.log('result', result);
 
     return (

@@ -20,7 +20,7 @@ const router = createBrowserRouter([
         element: <JsTest/>,
     },
     {
-        path: InternalNavigation.JS_TEST,
+        path: InternalNavigation.RQ,
         element: <RQ/>,
     },
 ]);

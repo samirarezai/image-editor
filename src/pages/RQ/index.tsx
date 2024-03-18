@@ -1,15 +1,20 @@
-import {useQuery, useQueryClient} from "react-query";
+import {useQuery, useQueryClient} from "@tanstack/react-query";
+import {fetchTodoList} from "@/services/rqApi";
 
 
 const Index = () => {
-    const queryClient = useQueryClient()
 
     // Queries
-    const query = useQuery('todos', getTodos)
+    const { isPending, error, data } = useQuery({
+        queryKey: ['repoData'],
+        queryFn: () => fetchTodoList(),
+    })
+
+    console.log(data)
 
     return (
         <div>
-
+            fsdf
         </div>
     );
 };

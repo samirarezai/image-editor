@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import DrawApp from "@/features/drawApp";
 import Tools from "@/features/tools";
 import CropTool from "@/features/crop/cropTool.tsx";
